@@ -7,20 +7,82 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+  //if n < 0
+  if (n < 0) {
+    //return -1
+    return null;
+  };
+
+  //if n === 0
+  if (n === 0) {
+    //return 1
+    return 1;
+  }
+  //return factorial(n * (n - 1))
+  return (n * factorial(n - 1) );
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+  if ((array.length - 1) === -1) {
+    return 0;
+  }
+  
+  if (array.length === 1) {
+    return array[0];
+  }
+
+  let total = array[0] + array[1];
+  let newArray = array.slice(2);
+  
+  return total + sum(newArray);
+
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  let total = 0;
+
+  if (array.length === 0) {
+    return total;
+  }
+
+  if ( array.length === 1 && Array.isArray(array[0]) === false ) {
+    return array[0];
+  }
+
+  let newArray;
+  
+  for (let i = 0; i < array.length; i++) {
+
+    if ( Array.isArray(array[i]) === true ) {
+      newArray = array.flat();
+      return arraySum(newArray);
+    }
+  };
+
+  total = array[0] + array[1];
+  newArray = array.splice(2);
+  return total + arraySum(newArray);
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+  if (n === 0) {
+    return true;
+  };
+
+  let difference = Math.abs(n) - 2;
+
+  if (difference === 0) {
+    return true;
+  } else if (difference <= 1) {
+    return false;
+  };
+
+  return isEven(difference);
 };
 
 // 5. Sum all integers below a given integer.
